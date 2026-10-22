@@ -1,0 +1,48 @@
+@startuml
+
+package model {
+    enum Allapot {
+        MUNKA
+        ROVID_SZUNET
+        HOSSZU_SZUNET
+        SZUNETEL
+    }
+
+    interface PomodoroFigyelo {
+        +tikk(hatralevoMasodperc: int)
+        +allapotValtozott(uj: Allapot)
+    }
+
+    class PomodoroModel {
+        -figyelok: List<PomodoroFigyelo>
+        -allapot: Allapot
+        -hatralevoMasodperc: int
+        -befejezettKorok: int
+        +feliratkoz(figyelo: PomodoroFigyelo)
+        +start()
+        +szunet()
+        +reset()
+        +tick()
+    }
+
+    PomodoroModel "1" o-- "0..*" PomodoroFigyelo : értesíti
+    PomodoroModel --> Allapot
+}
+
+package view {
+    class PomodoroView {
+        +tikk(masodperc: int)
+        +allapotValtozott(uj: Allapot)
+    }
+
+    class BeallitasokDialogus
+    PomodoroView ..|> PomodoroFigyelo
+}
+
+package controller {
+    class PomodoroController
+    PomodoroController --> PomodoroModel
+    PomodoroController --> PomodoroView
+}
+
+@enduml
