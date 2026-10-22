@@ -140,11 +140,11 @@ public class PomodoroModel {
         return munkaPerc;
     }
 
-    public int getRovidSzünetPerc() {
+    public int getRovidSzunetPerc() {
         return rovidSzunetPerc;
     }
 
-    public int getHosszuSzünetPerc() {
+    public int getHosszuSzunetPerc() {
         return hosszuSzunetPerc;
     }
 }

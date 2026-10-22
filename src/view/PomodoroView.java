@@ -33,6 +33,72 @@ public class PomodoroView extends JFrame implements PomodoroFigyelo {
         kozep.add(allapotFelirat);
         tartalom.add(kozep, BorderLayout.CENTER);
 
+        JPanel gombok = new JPanel();
+        gombok.add(startGomb);
+        gombok.add(szunetGomb);
+        gombok.add(resetGomb);
+        gombok.add(beallitasokGomb);
+        tartalom.add(gombok, BorderLayout.SOUTH);
 
+        setContentPane(tartalom);
+        frissitSzin(Allapot.MUNKA);
+    }
+
+    public JButton getStartGomb() {
+        return startGomb;
+    }
+
+    public JButton getSzunetGomb() {
+        return szunetGomb;
+    }
+
+    public JButton getResetGomb() {
+        return resetGomb;
+    }
+
+    public JButton getBeallitasokGomb() {
+        return beallitasokGomb;
+    }
+
+    @Override 
+    public void tikk(int masodperc) {
+        int perc = masodperc / 60;
+        int mp = masodperc % 60;
+        idoFelirat.setText(String.format("%02d:%02d", perc, mp));
+    }
+
+    @Override
+    public void allapotValtozott(Allapot uj) {
+        switch(uj) {
+            case MUNKA -> {
+                allapotFelirat.setText("Munka");
+                frissitSzin(uj);
+            }
+            case ROVID_SZUNET -> {
+                allapotFelirat.setText("Rovid szunet");
+                frissitSzin(uj);
+            }
+            case HOSSZU_SZUNET -> {
+                allapotFelirat.setText("Hosszu szunet");
+                frissitSzin(uj);
+            }
+            case SZUNETEL -> allapotFelirat.setText("Szunetel");
+        }
+    }
+
+    private void frissitSzin(Allapot allapot) {
+        Color szin;
+
+        if(allapot == Allapot.MUNKA) {
+            szin = new Color(255, 255, 255);
+        } else {
+            szin = new Color(220, 245, 220);
+        }
+
+        getContentPane().setBackground(szin);
+        idoFelirat.setOpaque(true);
+        idoFelirat.setBackground(szin);
+        allapotFelirat.setOpaque(true);
+        allapotFelirat.setBackground(szin);
     }
 }

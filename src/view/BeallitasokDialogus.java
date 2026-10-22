@@ -50,11 +50,11 @@ public class BeallitasokDialogus extends JDialog {
         return (int) munka.getValue();
     }
 
-    public int getRovidSzünetPerc() {
+    public int getRovidSzunetPerc() {
         return (int) rovidSzunet.getValue();
     }
 
-    public int getHosszuSzünetPerc() {
+    public int getHosszuSzunetPerc() {
         return (int) hosszuSzunet.getValue();
     }
 }
