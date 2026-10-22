@@ -1,18 +1,74 @@
-## Getting Started
+# Pomodoro óra
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Egyszerű Pomodoro időzítő Java Swing felülettel. A program munka- és szünetidőket kezel. A negyedik befejezett munkakör után hosszú szünetet indít.
 
-## Folder Structure
+## Követelmények
 
-The workspace contains two folders by default, where:
+- Java 17 vagy újabb
+- Visual Studio Code és az Extension Pack for Java
+- JUnit 5 a modelltesztek futtatásához
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Projekt felépítése
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+```text
+.
+├── lib/
+│   └── junit-platform-console-standalone-<verzio>.jar
+├── src/
+│   ├── controller/
+│   │   └── PomodoroController.java
+│   ├── model/
+│   │   ├── Allapot.java
+│   │   ├── PomodoroFigyelo.java
+│   │   └── PomodoroModel.java
+│   ├── view/
+│   │   ├── BeallitasokDialogus.java
+│   │   └── PomodoroView.java
+│   └── Main.java
+├── test/
+│   └── model/
+│       └── PomodoroModelTest.java
+├── pomodoro.puml
+└── README.md
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Dependency Management
+Futtatás
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+VS Code
+1. Nyisd meg a projekt mappáját a VS Code-ban.
+2. Nyisd meg a src/Main.java fájlt.
+3. Kattints a main metódus fölötti Run hivatkozásra.
+Terminál
+A projekt gyökérmappájából fordítsd le és indítsd el az alkalmazást:
+javac -d out src/model/*.java src/view/*.java src/controller/*.java src/Main.java
+java -cp out Main
+
+
+Használat
+- Start elindítja vagy folytatja az időzítőt.
+- Szünet megállítja a visszaszámlálást.
+- Reset visszaállítja a munkaidőt, és nullázza a befejezett körök számát.
+- Beállítások megnyitja az időtartamokat módosító párbeszédablakot.
+
+
+Alapértelmezett időtartamok:
+- Munka: 25 perc
+- Rövid szünet: 5 perc
+- Hosszú szünet: 15 perc
+
+
+Minden befejezett munkakör után rövid szünet következik. A negyedik befejezett munkakör után hosszú szünet indul.
+
+
+Modelltesztek
+A modell Swing felület nélkül tesztelhető. A tesztek ellenőrzik:
+- a kezdeti állapotot és a hátralévő időt,
+- a szüneteltetést és folytatást,
+- a munka utáni rövid szünetet,
+- a negyedik kör utáni hosszú szünetet,
+- a reset működését.
+A PomodoroModel nem importál javax.swing osztályokat. Az időzítést a controllerben lévő javax.swing.Timer végzi.
+
+
+UML osztálydiagram
+A PlantUML osztálydiagram a pomodoro.puml fájlban található. A diagramon látható, hogy a PomodoroModel a PomodoroFigyelo interfészen keresztül értesíti a feliratkozókat a tikkelésről és az állapotváltásról.
