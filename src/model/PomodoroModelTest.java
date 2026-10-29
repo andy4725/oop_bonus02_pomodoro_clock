@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Verifies the model's timing, pause, and work/break cycle rules.
 class PomodoroModelTest {
 
+    // The timer starts in a work session with the configured duration and no completed sessions.
     @Test
     void kezdetbenMunkaAllapotbanVan() {
         PomodoroModel model = new PomodoroModel(1, 1, 2);
@@ -15,6 +17,7 @@ class PomodoroModelTest {
         assertEquals(0, model.getBefejezettKorok());
     }
 
+    // Resuming restores the state that was active before pausing.
     @Test
     void startFolytatjaASzuneteltAllapotot() {
         PomodoroModel model = new PomodoroModel(1, 1, 2);
@@ -27,6 +30,7 @@ class PomodoroModelTest {
         assertEquals(Allapot.MUNKA, model.getAllapot());
     }
 
+    // Completing a work session starts a short break.
     @Test
     void munkaUtanRovidSzunetKovetkezik() {
         PomodoroModel model = new PomodoroModel(1, 1, 2);
@@ -40,6 +44,7 @@ class PomodoroModelTest {
         assertEquals(1, model.getBefejezettKorok());
     }
 
+    // Four work sessions, including the intervening short breaks, lead to a long break.
     @Test
     void negyedikKorUtanHosszuSzunetKovetkezik() {
         PomodoroModel model = new PomodoroModel(1, 1, 2);
@@ -61,6 +66,7 @@ class PomodoroModelTest {
         assertEquals(4, model.getBefejezettKorok());
     }
 
+    // Reset restores the work state, original duration, and completed-session count.
     @Test
     void resetVisszaallitjaAzAlapAllapotot() {
         PomodoroModel model = new PomodoroModel(1, 1, 2);
@@ -73,6 +79,7 @@ class PomodoroModelTest {
         assertEquals(0, model.getBefejezettKorok());
     }
 
+    // Ticking while paused must not reduce the remaining time.
     @Test
     void szunetAlattNemCsokkenAzIdo() {
         PomodoroModel model = new PomodoroModel(1, 1, 2);

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Holds the Pomodoro timer state and its work/break transition rules.
 public class PomodoroModel {
     private final List<PomodoroFigyelo> figyelok = new ArrayList<>();
 
@@ -14,6 +15,7 @@ public class PomodoroModel {
     private int befejezettKorok;
 
     private Allapot allapot;
+    // Resume the state that was active before the timer was paused.
     private Allapot szunetElottiAllapot;
 
     public PomodoroModel() {
@@ -84,6 +86,7 @@ public class PomodoroModel {
         if(allapot == Allapot.MUNKA) {
             befejezettKorok++;
 
+            // Every fourth completed work session is followed by a long break.
             if(befejezettKorok % 4 == 0) {
                 allapot = Allapot.HOSSZU_SZUNET;
                 hatralevoMasodperc = hosszuSzunetPerc * 60;

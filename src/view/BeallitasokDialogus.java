@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+// Modal dialog for editing work and break durations.
 public class BeallitasokDialogus extends JDialog {
     private final JSpinner munka;
     private final JSpinner rovidSzunet;
@@ -30,6 +31,7 @@ public class BeallitasokDialogus extends JDialog {
         JButton megse = new JButton("Megse");
 
         mentes.addActionListener(e -> {
+            // The controller applies new values only when the user explicitly saves.
             mentve = true;
             dispose();
         });

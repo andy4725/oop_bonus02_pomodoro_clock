@@ -6,6 +6,7 @@ import model.PomodoroFigyelo;
 import javax.swing.*;
 import java.awt.*;
 
+// Swing window that displays the timer and its controls.
 public class PomodoroView extends JFrame implements PomodoroFigyelo {
     private final JLabel idoFelirat = new JLabel("25:00", SwingConstants.CENTER);
     private final JLabel allapotFelirat = new JLabel("Munka", SwingConstants.CENTER);
@@ -62,6 +63,7 @@ public class PomodoroView extends JFrame implements PomodoroFigyelo {
 
     @Override 
     public void tikk(int masodperc) {
+        // The model stores seconds; the label displays them as minutes and seconds.
         int perc = masodperc / 60;
         int mp = masodperc % 60;
         idoFelirat.setText(String.format("%02d:%02d", perc, mp));
